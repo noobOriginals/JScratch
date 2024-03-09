@@ -69,6 +69,7 @@ public class ScratchJPanel extends JPanel implements Runnable {
 
 	private int setFPS;
 	private int fps;
+	@SuppressWarnings("unused")
 	private int displayFps;
 
 	private NColor col = new NColor();
@@ -122,8 +123,8 @@ public class ScratchJPanel extends JPanel implements Runnable {
 		if(outerSD != null) {
 			outerSD.draw(g2d, col, bgcolor);
 		}
-		g2d.setColor(col.invertColor(bgcolor));
-		g2d.drawString("FPS: " + displayFps, 10, 20);
+//		g2d.setColor(col.invertColor(bgcolor));
+//		g2d.drawString("FPS: " + displayFps, 10, 20);
 		g2d.dispose();
 	}
 

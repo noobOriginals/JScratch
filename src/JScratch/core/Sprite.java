@@ -6,6 +6,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class Sprite {
+	
+	private static ArrayList<String> sprites = new ArrayList<String>();
+	private static String noName = "a";
 
 	private ArrayList<Costume> costumes = new ArrayList<Costume>();
 	private String name;
@@ -14,11 +17,13 @@ public class Sprite {
 	private double size;
 	private int x, y;
 	private double direction;
-//	private int xInc, yInc;
-//	private double dirInc;
 
-	public Sprite(String name) {
+	public Sprite(String name) throws Exception {
 		this.name = name;
+		if(sprites.contains(name)) {
+			throw new Exception("Cannot create another sprite named " + name + "!!!\nPlease choose another name!");
+		}
+		sprites.add(name);
 		visible = true;
 		x = 0;
 		y = 0;
@@ -26,27 +31,57 @@ public class Sprite {
 		direction = 1d;
 		size = 1d;
 	}
-	public Sprite(String name, boolean visible) {
+	public Sprite(String name, boolean visible) throws Exception {
 		this.name = name;
+		if(sprites.contains(name)) {
+			throw new Exception("Cannot create another sprite named " + name + "!!!\nPlease choose another name!");
+		}
+		sprites.add(name);
 		this.visible = visible;
 		x = 0;
 		y = 0;
 		costume = 0;
 		size = 1d;
 	}
-	public Sprite(String name, boolean visible, int x, int y) {
+	public Sprite(String name, boolean visible, int x, int y) throws Exception {
 		this.name = name;
+		if(sprites.contains(name)) {
+			throw new Exception("Cannot create another sprite named " + name + "!!!\nPlease choose another name!");
+		}
+		sprites.add(name);
 		this.visible = visible;
 		this.x = x;
 		this.y = y;
 		costume = 0;
 		size = 1d;
 	}
-	public Sprite(String name, int x, int y) {
+	public Sprite(String name, int x, int y) throws Exception {
 		this.name = name;
+		if(sprites.contains(name)) {
+			throw new Exception("Cannot create another sprite named " + name + "!!!\nPlease choose another name!");
+		}
+		sprites.add(name);
 		visible = true;
 		this.x = x;
 		this.y = y;
+		costume = 0;
+		size = 1d;
+	}
+	public Sprite(int x, int y) {
+		noName = noName + "a";
+		sprites.add(noName);
+		visible = true;
+		this.x = x;
+		this.y = y;
+		costume = 0;
+		size = 1d;
+	}
+	public Sprite() {
+		noName = noName + "a";
+		sprites.add(noName);
+		visible = true;
+		this.x = 0;
+		this.y = 0;
 		costume = 0;
 		size = 1d;
 	}

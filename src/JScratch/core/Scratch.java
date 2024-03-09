@@ -22,6 +22,7 @@ public class Scratch {
 	private BufferedImage icon;
 
 	// Starts the Thread in the panel:
+	@Deprecated
 	public void startApp() {
 		panel.startApp();
 	}
@@ -72,15 +73,19 @@ public class Scratch {
 	}
 
 	// Add the object that implements SRunnable for running by thread in panel:
+	@Deprecated
 	public void addSRunnable(SRunnable scr) {
 		panel.addSRunnable(scr);
 	}
+	
+	// Add a SDrawable object:
 	public void addSDrawable(SDrawable scr) {
 		panel.addSDrawable(scr);
 	}
 
 	// Refresh screen, not recommended:
 	public void refresh() {
+		panel.revalidate();
 		panel.repaint();
 	}
 
