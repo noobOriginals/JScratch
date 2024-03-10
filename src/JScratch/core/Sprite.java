@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class Sprite {
 	
@@ -180,29 +181,27 @@ public class Sprite {
 	/***************************************************************************************************
 	 * The method below this comment and above the next comment below this one needs to be finished !! *
 	 * *************************************************************************************************/
-	@SuppressWarnings({ "unused" })
-	@Deprecated
-	private boolean touching(Sprite s) {
-		int x1, y1, x2, y2;
-		int w1, h1, w2, h2;
-		x1 = this.getX();
-		y1 = this.getY();
-		x2 = s.getX();
-		y2 = s.getY();
-		w1 = this.width();
-		h1 = this.height();
-		w2 = s.width();
-		h2 = s.height();
-		for(Point p1 : this.getCostume().getOuterPixels()) {
-			for(Point p2 : s.getCostume().getOuterPixels()) {
-				if(x1 + p1.x >= x2 + p2.x) {
-					return true;
-				} else if(true) {
-
-				}
-			}
+	public boolean touching(Sprite s) {
+		int ox = s.getX();
+		int oy = s.getY();
+		Set<Point> localPixels = this.getCostume().getPixels();
+		Set<Point> outerPixels = s.getCostume().getPixels();
+		for(Point p : localPixels) {
+			p.x += x;
+			p.y += y;
 		}
-		return false;
+		for(Point p : outerPixels) {
+			p.x += ox;
+			p.y += oy;
+		}
+		localPixels.retainAll(outerPixels);
+		if(!this.boundstouching(s)) {
+			return false;
+		} else if (!localPixels.isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	/******************************************************************************************************
 	 * The method above this comment and below the next comment on above this one needs to be finished !! *

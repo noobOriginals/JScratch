@@ -3,7 +3,7 @@ package JScratch.core;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.imageio.ImageIO;
 
@@ -13,7 +13,31 @@ public class Costume {
 	private String name;
 	private int height, width;
 
-	private ArrayList<Point> outerPixels = new ArrayList<Point>();
+	private HashSet<Point> Pixels = new HashSet<Point>();
+	
+	private void scan(int offset) {
+		int x, y;
+		for(x = offset, y = offset; y < height - offset; y++) {
+			if(costume.getRGB(x, y) != 0) {
+				Pixels.add(new Point(x ,y));
+			}
+		}
+		for(x = offset + 1, y = height - offset - 1; x < width - offset; x++) {
+			if(costume.getRGB(x, y) != 0) {
+				Pixels.add(new Point(x ,y));
+			}
+		}
+		for(x = width - offset - 1, y = height - offset - 2; y >= offset; y--) {
+			if(costume.getRGB(x, y) != 0) {
+				Pixels.add(new Point(x ,y));
+			}
+		}
+		for(x = width - offset - 2, y = offset; x >= offset + 1; x--) {
+			if(costume.getRGB(x, y) != 0) {
+				Pixels.add(new Point(x ,y));
+			}
+		}
+	}
 
 	public Costume(String name, String directory) {
 		try {
@@ -24,69 +48,16 @@ public class Costume {
 		height = costume.getHeight();
 		width = costume.getWidth();
 		this.name = name;
-
-		int rgb = 0;
-		for(int y = 0, x = 0; y < height; y++) {
-			rgb = costume.getRGB(x, y);
-			while(rgb == 0) {
-				x++;
-				rgb = costume.getRGB(x, y);
-				if(x + 1 == width && rgb == 0) {
-					x = 0;
-					break;
-				}
-			}
-			if(rgb != 0 ) {
-				outerPixels.add(new Point(x, y));
-			}
-		}
-		for(int y = height - 1, x = 1; x < width; x++) {
-			rgb = costume.getRGB(x, y);
-			while(rgb == 0) {
-				y--;
-				rgb = costume.getRGB(x, y);
-				if(y == 0 && rgb == 0) {
-					y = height - 1;
-					break;
-				}
-			}
-			if(rgb != 0 ) {
-				outerPixels.add(new Point(x, y));
-			}
-		}
-		for(int y = height - 2, x = width - 1; y >= 0; y--) {
-			rgb = costume.getRGB(x, y);
-			while(rgb == 0) {
-				x--;
-				rgb = costume.getRGB(x, y);
-				if(x == 0 && rgb == 0) {
-					x = width - 1;
-					break;
-				}
-			}
-			if(rgb != 0 ) {
-				outerPixels.add(new Point(x, y));
-			}
-		}
-		for(int y = 0, x = width - 2; x >= 1; x--) {
-			rgb = costume.getRGB(x, y);
-			while(rgb == 0) {
-				y++;
-				rgb = costume.getRGB(x, y);
-				if(y + 1 == width && rgb == 0) {
-					y = 0;
-					break;
-				}
-			}
-			if(rgb != 0 ) {
-				outerPixels.add(new Point(x, y));
-			}
+		
+		int maxoffset = (width < height) ? (int) Math.floor(width / 2) : (int) Math.floor(height / 2);
+		for(int offset = 0; offset <= maxoffset; offset ++) {
+			scan(offset);
 		}
 	}
 
 
-	public ArrayList<Point> getOuterPixels() {
-		return outerPixels;
+	public HashSet<Point> getPixels() {
+		return Pixels;
 	}
 	public BufferedImage getCostume() {
 		return costume;
