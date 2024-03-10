@@ -15,6 +15,8 @@ public class Costume {
 
 	private HashSet<Point> Pixels = new HashSet<Point>();
 	
+	// This method needs to be finished:
+	@Deprecated
 	private void scan(int offset) {
 		int x, y;
 		for(x = offset, y = offset; y < height - offset; y++) {

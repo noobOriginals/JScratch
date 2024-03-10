@@ -181,7 +181,9 @@ public class Sprite {
 	/***************************************************************************************************
 	 * The method below this comment and above the next comment below this one needs to be finished !! *
 	 * *************************************************************************************************/
-	public boolean touching(Sprite s) {
+	@SuppressWarnings("unused")
+	@Deprecated
+	private boolean touching(Sprite s) {
 		int ox = s.getX();
 		int oy = s.getY();
 		Set<Point> localPixels = this.getCostume().getPixels();
@@ -206,10 +208,19 @@ public class Sprite {
 	/******************************************************************************************************
 	 * The method above this comment and below the next comment on above this one needs to be finished !! *
 	 * ****************************************************************************************************/
-
-	public boolean touchingColor(Color c) {
+	
+	
+	/***************************************************************************************************
+	 * The method below this comment and above the next comment below this one needs to be finished !! *
+	 * *************************************************************************************************/
+	@SuppressWarnings({ "unused" })
+	@Deprecated
+	private boolean touchingColor(Color c) {
 		return false;
 	}
+	/******************************************************************************************************
+	 * The method above this comment and below the next comment on above this one needs to be finished !! *
+	 * ****************************************************************************************************/
 
 	public void setCostume(int c) throws Exception {
 		if(c < 0 || c >= costumes.size()) {
